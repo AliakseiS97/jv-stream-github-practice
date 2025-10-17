@@ -12,7 +12,7 @@ public class CandidateValidator implements Predicate<Candidate> {
 
     @Override
     public boolean test(Candidate candidate) {
-        if (candidate != null) {
+        if (candidate != null && candidate.getNationality() != null) {
             return (candidate.getAge() >= MIN_PRESIDENT_AGE)
                     && (candidate.isAllowedToVote())
                     && (Objects.equals(candidate
@@ -35,9 +35,9 @@ public class CandidateValidator implements Predicate<Candidate> {
         }
 
         try {
-            int startYear = Integer.parseInt(periods[0]);
-            int endYear = Integer.parseInt(periods[1]);
-            return Math.abs(endYear - startYear);
+            int startYear = Integer.parseInt(periods[0].trim());
+            int endYear = Integer.parseInt(periods[1].trim());
+            return endYear >= startYear ? endYear - startYear : 0;
         } catch (NumberFormatException e) {
             return 0;
         }
